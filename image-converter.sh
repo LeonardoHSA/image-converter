@@ -3,10 +3,18 @@
 # Autor: LeonardoSanfins
 #
 
-# se as imagens estiverem em outro diretório especifique o caminho nessa variével
-IMAGE_PATH=$(imagens-livros)
+# se as imagens estiverem em outro diretório especifique o caminho nessa variével ou coloque o caminho
+cd ~/Scripts/image-converter/imagens-livros
 
-for image in $@
+# verifica se o diretório png existe
+if [ ! -d png ]
+then
+	mkdir png
+fi
+
+# roda o diretório em busca de arquivos com e extensão .jpg
+for image in *.jpg
 do
-	convert $IMAGE_PATH/$image.jpg $IMAGE_PATH/$image.png
+	imagem_sem_extensao=$(ls $image | awk -F. '{ print $1 }')
+	convert $imagem_sem_extensao.jpg png/$imagem_sem_extensao.png
 done
